@@ -41,7 +41,13 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
-      connectSrc: ["'self'", ...connectSrcUrls],
+      connectSrc: [
+        "'self'",
+        'https://unpkg.com',
+        'https://tile.openstreetmap.org',
+        'https://your-app.onrender.com',
+        ...connectSrcUrls,
+      ],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", 'blob:'],
