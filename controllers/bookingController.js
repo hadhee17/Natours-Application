@@ -1,8 +1,8 @@
-const Tour = require('../models/tourModel');
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Booking = require('../models/bookingModel');
-const catchAsync = require('../utils/catchAsync');
-const factory = require('./handlerFactory');
+// const Tour = require('../models/tourModel');
+// // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// const Booking = require('../models/bookingModel');
+// const catchAsync = require('../utils/catchAsync');
+// const factory = require('./handlerFactory');
 
 //payment gateway
 // exports.checkoutSession = catchAsync(async (req, res, next) => {
@@ -36,19 +36,19 @@ const factory = require('./handlerFactory');
 //   });
 // });
 
-exports.createBookingCheckout = catchAsync(async (req, res, next) => {
-  // This is only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
-  const { tour, user, price } = req.query;
+// exports.createBookingCheckout = catchAsync(async (req, res, next) => {
+//   // This is only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
+//   const { tour, user, price } = req.query;
 
-  if (!tour || !user || !price) return next();
+//   if (!tour || !user || !price) return next();
 
-  const newBooking = await Booking.create({ tour, user, price });
+//   const newBooking = await Booking.create({ tour, user, price });
 
-  res.redirect(req.originalUrl.split('?')[0]);
-});
+//   res.redirect(req.originalUrl.split('?')[0]);
+// });
 
-exports.getAllBookings = factory.getAll(Booking);
-exports.getBooking = factory.getOne(Booking);
-exports.createBooking = factory.createOne(Booking);
-exports.updateBooking = factory.updateOne(Booking);
-exports.deleteBooking = factory.deleteOne(Booking);
+// exports.getAllBookings = factory.getAll(Booking);
+// exports.getBooking = factory.getOne(Booking);
+// exports.createBooking = factory.createOne(Booking);
+// exports.updateBooking = factory.updateOne(Booking);
+// exports.deleteBooking = factory.deleteOne(Booking);
