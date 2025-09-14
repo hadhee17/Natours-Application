@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    block head 
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      title Natours |#{title}
+      link(rel='icon', type='image/png', href='/img/favicon.png')
+      link(rel='stylesheet', href='/css/style.css')
+      link(rel='preconnect', href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+
+
+  body
+    //- Header
+    include _header.pug
+
+    //- Main content (add your page content here)
+    block content 
+      h1 Welcome to Natours!
+      p This is placeholder content.
+
+    //- Footer
+    include _footer.pug
+
+    
+    //- script(src='/js/mapBox.js')
+    //- script(type="module" src="/js/index.js")
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src='/js/bundle.js')
+    
+
+
+
