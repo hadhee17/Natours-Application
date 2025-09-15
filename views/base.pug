@@ -3,6 +3,9 @@ html
   head
     block head 
       meta(charset='utf-8')
+      
+      meta(name="api-url" content=API_URL)
+
       meta(name='viewport', content='width=device-width, initial-scale=1')
       title Natours |#{title}
       link(rel='icon', type='image/png', href='/img/favicon.png')
@@ -26,8 +29,8 @@ html
     //- script(src='/js/mapBox.js')
     //- script(type="module" src="/js/index.js")
     script(src="https://unpkg.com/axios/dist/axios.min.js")
-    script.const API_URL = '!{API_URL}';
     script(src='/js/bundle.js')
+   
     
 
 
