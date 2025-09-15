@@ -43,6 +43,8 @@ app.use(
       defaultSrc: [],
       connectSrc: [
         "'self'",
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
         'https://unpkg.com',
         'https://tile.openstreetmap.org',
         'https://your-app.onrender.com',
