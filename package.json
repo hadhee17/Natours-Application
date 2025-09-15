@@ -4,6 +4,9 @@
   "type": "commonjs",
   "description": "learning express and mongoDB",
   "main": "app.js",
+  "targets": {
+    "main": false
+  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start:dev": "node server.js",

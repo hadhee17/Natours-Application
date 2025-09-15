@@ -16,24 +16,8 @@ const viewRouter = require('./routes/viewRoutes');
 // const bookingRouter = require('./routes/bookingRoutes');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const cors = require('cors');
 
 const app = express();
-app.use(cors());
-
-// Basic (allow everything – dev only)
-
-// More secure: allow only your frontend
-app.use(
-  cors({
-    origin: [
-      // local dev
-      'https://natours-application-z4zt.onrender.com/', // local dev
-      // if frontend hosted separately
-    ],
-    credentials: true, // if you use cookies / JWT in cookies
-  }),
-);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -45,27 +29,25 @@ app.use(helmet());
 // app.use(cors());
 const scriptSrcUrls = ['https://unpkg.com/', 'https://tile.openstreetmap.org'];
 const styleSrcUrls = [
-  'https://unpkg.com', // Leaflet CSS
-  'https://tile.openstreetmap.org', // map tiles CSS
-  'https://fonts.googleapis.com/', // Google Fonts
+  'https://unpkg.com/',
+  'https://tile.openstreetmap.org',
+  'https://fonts.googleapis.com/',
 ];
-const connectSrcUrls = [
-  'https://unpkg.com', // Leaflet fetch calls
-  'https://tile.openstreetmap.org', // map tiles
-  'https://natours-application-z4zt.onrender.com', // backend API
-  'wss://natours-application-z4zt.onrender.com', // WebSocket
-];
-const fontSrcUrls = [
-  'https://fonts.googleapis.com',
-  'https://fonts.gstatic.com',
-];
+const connectSrcUrls = ['https://unpkg.com', 'https://tile.openstreetmap.org'];
+const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 //set security http headers
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
-      connectSrc: ["'self'", ...connectSrcUrls],
+      connectSrc: [
+        "'self'",
+        'https://unpkg.com',
+        'https://tile.openstreetmap.org',
+        'https://your-app.onrender.com',
+        ...connectSrcUrls,
+      ],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", 'blob:'],
