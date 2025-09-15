@@ -16,24 +16,17 @@ const viewRouter = require('./routes/viewRoutes');
 // const bookingRouter = require('./routes/bookingRoutes');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+app.locals.API_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://natours-application-z4zt.onrender.com/api/v1/users'
+    : 'http://127.0.0.1:3000/api/v1/users';
 
 // Basic (allow everything – dev only)
 
 // More secure: allow only your frontend
-app.use(
-  cors({
-    origin: [
-      // local dev
-      'https://natours-application-z4zt.onrender.com/', // local dev
-      // if frontend hosted separately
-    ],
-    credentials: true, // if you use cookies / JWT in cookies
-  }),
-);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -43,30 +36,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 //security headers
 app.use(helmet());
 // app.use(cors());
-// const scriptSrcUrls = ['https://unpkg.com/', 'https://tile.openstreetmap.org'];
-// const styleSrcUrls = [
-//   'https://unpkg.com/',
-//   'https://tile.openstreetmap.org',
-//   'https://fonts.googleapis.com/',
-// ];
-// const connectSrcUrls = ['https://unpkg.com', 'https://tile.openstreetmap.org'];
-// const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+const connectSrcUrls = [
+  'https://unpkg.com',
+  'https://tile.openstreetmap.org',
+  'https://natours-application-z4zt.onrender.com', // backend over HTTPS
+  'wss://natours-application-z4zt.onrender.com:64028', // backend WebSocket
+];
 
 //set security http headers
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: [],
-//       connectSrc: ["'self'", ...connectSrcUrls],
-//       scriptSrc: ["'self'", ...scriptSrcUrls],
-//       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-//       workerSrc: ["'self'", 'blob:'],
-//       objectSrc: [],
-//       imgSrc: ["'self'", 'blob:', 'data:', 'https:'],
-//       fontSrc: ["'self'", ...fontSrcUrls],
-//     },
-//   }),
-// );
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      scriptSrc: ["'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", 'blob:'],
+      objectSrc: [],
+      imgSrc: ["'self'", 'blob:', 'data:', 'https:'],
+      fontSrc: ["'self'", ...fontSrcUrls],
+    },
+  }),
+);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
