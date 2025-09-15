@@ -27,8 +27,8 @@ app.use(cors());
 app.use(
   cors({
     origin: [
-      'http://127.0.0.1:3000', // local dev
-      'http://localhost:3000', // local dev
+      // local dev
+      'https://natours-application-z4zt.onrender.com/', // local dev
       // if frontend hosted separately
     ],
     credentials: true, // if you use cookies / JWT in cookies
@@ -52,26 +52,12 @@ const styleSrcUrls = [
 const connectSrcUrls = ['https://unpkg.com', 'https://tile.openstreetmap.org'];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
-// Decide API base depending on environment
-app.locals.API_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://natours-application-z4zt.onrender.com/api/v1/users'
-    : 'http://127.0.0.1:3000/api/v1/users';
-
 //set security http headers
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
-      connectSrc: [
-        "'self'",
-        'http://127.0.0.1:3000',
-        'http://localhost:3000',
-        'https://unpkg.com',
-        'https://tile.openstreetmap.org',
-        'https://your-app.onrender.com',
-        ...connectSrcUrls,
-      ],
+      connectSrc: ["'self'", ...connectSrcUrls],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", 'blob:'],
