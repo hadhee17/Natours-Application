@@ -13,7 +13,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
-// const bookingRouter = require('./routes/bookingRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
@@ -25,16 +25,32 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 // 1) MIDDLEWARES
 //security headers
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: false,
+  }),
+);
 // app.use(cors());
 const scriptSrcUrls = ['https://unpkg.com/', 'https://tile.openstreetmap.org'];
 const styleSrcUrls = [
   'https://unpkg.com/',
   'https://tile.openstreetmap.org',
   'https://fonts.googleapis.com/',
+  'https://*.cloudflare.com',
+  'https://js.stripe.com/v3/',
+  'https://checkout.stripe.com',
+  'https://www.myfonts.com/fonts/radomir-tinkov/gilroy/*',
 ];
 const connectSrcUrls = ['https://unpkg.com', 'https://tile.openstreetmap.org'];
-const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+const fontSrcUrls = [
+  'fonts.googleapis.com',
+  'fonts.gstatic.com',
+  'https://*.cloudflare.com',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:52191',
+  '*.stripe.com',
+];
 
 //set security http headers
 app.use(
@@ -97,7 +113,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/review', reviewRouter);
-// app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
