@@ -1,6 +1,6 @@
 # 🌿 Natours – Tour Booking Application
 
-> A complete **Node.js**, **Express**, **MongoDB**, and **Mongoose** application built as part of Jonas Schmedtmann’s [Node.js Bootcamp](https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/).  
+> A complete **Node.js**, **Express**, **MongoDB**, and **Mongoose**. 
 > The app allows users to explore, book, and manage exciting nature tours around the world.
 
 ---
